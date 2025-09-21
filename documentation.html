@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เอกสารระบบ Authentication Laravel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .code-block { background-color: #1e293b; color: #e2e8f0; padding: 1rem; border-radius: 0.5rem; overflow-x: auto; }
+        .nav-link { transition: all 0.3s ease; }
+        .nav-link:hover { background-color: #3b82f6; color: white; }
+        h1, h2, h3 { scroll-margin-top: 2rem; }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-lg fixed w-full top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <h1 class="text-2xl font-bold text-gray-800">
+                    <i class="fas fa-shield-alt text-blue-600 mr-2"></i>
+                    เอกสารระบบ Authentication Laravel
+                </h1>
+                <div class="hidden md:flex space-x-4">
+                    <a href="#overview" class="nav-link px-3 py-2 rounded-lg text-gray-600">ภาพรวม</a>
+                    <a href="#installation" class="nav-link px-3 py-2 rounded-lg text-gray-600">การติดตั้ง</a>
+                    <a href="#login" class="nav-link px-3 py-2 rounded-lg text-gray-600">Login</a>
+                    <a href="#register" class="nav-link px-3 py-2 rounded-lg text-gray-600">Register</a>
+                    <a href="#security" class="nav-link px-3 py-2 rounded-lg text-gray-600">ความปลอดภัย</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="pt-20 max-w-7xl mx-auto px-4 py-8">
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Sidebar -->
+            <div class="lg:w-1/4">
+                <div class="bg-white rounded-lg shadow-md p-6 sticky top-24">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4">
+                        <i class="fas fa-list mr-2"></i>สารบัญ
+                    </h3>
+                    <ul class="space-y-2">
+                        <li><a href="#overview" class="block py-2 px-3 text-blue-600 hover:bg-blue-50 rounded">1. ภาพรวมระบบ</a></li>
+                        <li><a href="#installation" class="block py-2 px-3 text-blue-600 hover:bg-blue-50 rounded">2. การติดตั้ง</a></li>
+                        <li><a href="#login" class="block py-2 px-3 text-blue-600 hover:bg-blue-50 rounded">3. ระบบ Login</a></li>
+                        <li><a href="#register" class="block py-2 px-3 text-blue-600 hover:bg-blue-50 rounded">4. ระบบ Register</a></li>
+                        <li><a href="#dashboard" class="block py-2 px-3 text-blue-600 hover:bg-blue-50 rounded">5. Dashboard</a></li>
+                        <li><a href="#security" class="block py-2 px-3 text-blue-600 hover:bg-blue-50 rounded">6. ความปลอดภัย</a></li>
+                        <li><a href="#troubleshooting" class="block py-2 px-3 text-blue-600 hover:bg-blue-50 rounded">7. แก้ไขปัญหา</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="lg:w-3/4">
+                <!-- Overview Section -->
+                <section id="overview" class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                        <i class="fas fa-eye text-blue-600 mr-2"></i>1. ภาพรวมระบบ
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-2">
+                                <i class="fas fa-sign-in-alt mr-2"></i>ระบบเข้าสู่ระบบ (Login)
+                            </h4>
+                            <p class="text-blue-600 text-sm">สำหรับผู้ใช้ที่มีบัญชีแล้ว</p>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-green-800 mb-2">
+                                <i class="fas fa-user-plus mr-2"></i>ระบบสมัครสมาชิก (Register)
+                            </h4>
+                            <p class="text-green-600 text-sm">สำหรับผู้ใช้ใหม่</p>
+                        </div>
+                    </div>
+                    
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">เทคโนโลยีที่ใช้</h3>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <ul class="grid grid-cols-1 md:grid-cols-2 gap-2">
+                            <li><strong>Backend:</strong> Laravel 12.0, PHP 8.2+</li>
+                            <li><strong>Frontend:</strong> Tailwind CSS</li>
+                            <li><strong>Database:</strong> MySQL/PostgreSQL/SQLite</li>
+                            <li><strong>Security:</strong> CSRF, Password Hashing</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Installation Section -->
+                <section id="installation" class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                        <i class="fas fa-download text-green-600 mr-2"></i>2. การติดตั้งและตั้งค่า
+                    </h2>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-2">1. ติดตั้ง Dependencies</h4>
+                            <div class="code-block">composer install<br>npm install</div>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-2">2. ตั้งค่า Environment</h4>
+                            <div class="code-block">cp .env.example .env<br>php artisan key:generate</div>
+                        </div>
+                        
+                        <div class="bg-gray-50 p-4 rounded-lg">
+                            <h4 class="font-semibold mb-2">3. เริ่มต้น Server</h4>
+                            <div class="code-block">php artisan migrate<br>php artisan serve<br>npm run dev</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Login System Section -->
+                <section id="login" class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                        <i class="fas fa-sign-in-alt text-blue-600 mr-2"></i>3. ระบบ Login
+                    </h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-2">ฟีเจอร์หลัก</h4>
+                            <ul class="text-sm text-blue-600 space-y-1">
+                                <li>• ฟอร์มเข้าสู่ระบบ (Email/Password)</li>
+                                <li>• ช่อง Remember Me</li>
+                                <li>• ลิงก์ Forgot Password</li>
+                                <li>• ปุ่ม Social Login</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-green-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-green-800 mb-2">Controller Methods</h4>
+                            <ul class="text-sm text-green-600 space-y-1">
+                                <li>• showLoginForm() - แสดงหน้าฟอร์ม</li>
+                                <li>• login() - ประมวลผลเข้าสู่ระบบ</li>
+                                <li>• logout() - ออกจากระบบ</li>
+                                <li>• checkAuth() - ตรวจสอบสถานะ</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4">
+                        <h4 class="font-semibold mb-2">การใช้งาน:</h4>
+                        <p>ไปที่ <code>http://localhost:8000/login</code> → กรอก Email/Password → คลิก Sign In</p>
+                    </div>
+                </section>
+
+                <!-- Register System Section -->
+                <section id="register" class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                        <i class="fas fa-user-plus text-green-600 mr-2"></i>4. ระบบ Register
+                    </h2>
+
+                    <h3 class="text-xl font-semibold text-gray-800 mb-3">กฎการตรวจสอบข้อมูล</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        <div class="bg-red-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-red-800 mb-2">Name</h4>
+                            <ul class="text-sm text-red-600 space-y-1">
+                                <li>• จำเป็นต้องกรอก</li>
+                                <li>• 2-255 ตัวอักษร</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-orange-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-orange-800 mb-2">Email</h4>
+                            <ul class="text-sm text-orange-600 space-y-1">
+                                <li>• รูปแบบ Email ถูกต้อง</li>
+                                <li>• ไม่ซ้ำในระบบ</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-purple-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-purple-800 mb-2">Password</h4>
+                            <ul class="text-sm text-purple-600 space-y-1">
+                                <li>• ขั้นต่ำ 8 ตัวอักษร</li>
+                                <li>• มีตัวพิมพ์เล็ก/ใหญ่</li>
+                                <li>• มีตัวเลขและสัญลักษณ์</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="bg-green-50 border-l-4 border-green-400 p-4">
+                        <h4 class="font-semibold mb-2">การใช้งาน:</h4>
+                        <p>ไปที่ <code>http://localhost:8000/register</code> → กรอกข้อมูล → ยอมรับเงื่อนไข → สร้างบัญชี</p>
+                    </div>
+                </section>
+
+                <!-- Dashboard Section -->
+                <section id="dashboard" class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                        <i class="fas fa-tachometer-alt text-purple-600 mr-2"></i>5. Dashboard
+                    </h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div class="bg-blue-50 p-4 rounded-lg text-center">
+                            <i class="fas fa-chart-bar text-blue-600 text-2xl mb-2"></i>
+                            <h4 class="font-semibold text-blue-800">Navigation</h4>
+                            <p class="text-sm text-blue-600">ชื่อผู้ใช้และ Logout</p>
+                        </div>
+                        
+                        <div class="bg-green-50 p-4 rounded-lg text-center">
+                            <i class="fas fa-th-large text-green-600 text-2xl mb-2"></i>
+                            <h4 class="font-semibold text-green-800">Cards</h4>
+                            <p class="text-sm text-green-600">สถิติและข้อมูล</p>
+                        </div>
+                        
+                        <div class="bg-orange-50 p-4 rounded-lg text-center">
+                            <i class="fas fa-bolt text-orange-600 text-2xl mb-2"></i>
+                            <h4 class="font-semibold text-orange-800">Quick Actions</h4>
+                            <p class="text-sm text-orange-600">การดำเนินการด่วน</p>
+                        </div>
+                        
+                        <div class="bg-purple-50 p-4 rounded-lg text-center">
+                            <i class="fas fa-clock text-purple-600 text-2xl mb-2"></i>
+                            <h4 class="font-semibold text-purple-800">Activity</h4>
+                            <p class="text-sm text-purple-600">กิจกรรมล่าสุด</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Security Section -->
+                <section id="security" class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                        <i class="fas fa-shield-alt text-red-600 mr-2"></i>6. ฟีเจอร์ความปลอดภัย
+                    </h2>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-red-50 p-4 rounded-lg">
+                            <h3 class="text-lg font-semibold text-red-800 mb-3">
+                                <i class="fas fa-check-circle mr-2"></i>การตรวจสอบข้อมูล
+                            </h3>
+                            <ul class="space-y-2 text-red-700">
+                                <li>• Email Validation</li>
+                                <li>• Password Strength Check</li>
+                                <li>• Unique Email Verification</li>
+                                <li>• Required Fields Validation</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-orange-50 p-4 rounded-lg">
+                            <h3 class="text-lg font-semibold text-orange-800 mb-3">
+                                <i class="fas fa-lock mr-2"></i>การป้องกันระบบ
+                            </h3>
+                            <ul class="space-y-2 text-orange-700">
+                                <li>• CSRF Protection</li>
+                                <li>• Password Hashing (bcrypt)</li>
+                                <li>• Session Management</li>
+                                <li>• Input Sanitization</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Troubleshooting Section -->
+                <section id="troubleshooting" class="bg-white rounded-lg shadow-md p-6 mb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                        <i class="fas fa-tools text-yellow-600 mr-2"></i>7. การแก้ไขปัญหา
+                    </h2>
+                    
+                    <div class="space-y-4">
+                        <div class="bg-red-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-red-800 mb-2">ไม่สามารถเข้าสู่ระบบได้</h4>
+                            <ul class="text-sm text-red-600 space-y-1">
+                                <li>• ตรวจสอบ Email และ Password</li>
+                                <li>• ลบ Cache: <code>php artisan cache:clear</code></li>
+                                <li>• ตรวจสอบการเชื่อมต่อฐานข้อมูล</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-orange-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-orange-800 mb-2">หน้าเว็บไม่แสดงผล</h4>
+                            <ul class="text-sm text-orange-600 space-y-1">
+                                <li>• รัน: <code>php artisan serve</code></li>
+                                <li>• รัน: <code>npm run dev</code></li>
+                                <li>• ลบ View Cache: <code>php artisan view:clear</code></li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-blue-50 p-4 rounded-lg">
+                            <h4 class="font-semibold text-blue-800 mb-2">คำสั่งที่มีประโยชน์</h4>
+                            <div class="code-block text-sm">
+php artisan cache:clear      # ล้าง Cache<br>
+php artisan migrate:status   # ตรวจสอบ Migration<br>
+php artisan tinker          # Laravel REPL
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Summary -->
+                <section class="bg-gradient-to-r from-blue-50 to-green-50 rounded-lg p-6">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">
+                        <i class="fas fa-check-circle text-green-600 mr-2"></i>บทสรุป
+                    </h2>
+                    <p class="text-gray-700 mb-4">ระบบ Authentication Laravel นี้ประกอบด้วยฟีเจอร์ครบครันสำหรับการจัดการผู้ใช้:</p>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="text-center">
+                            <i class="fas fa-sign-in-alt text-blue-600 text-2xl mb-2"></i>
+                            <p class="text-sm font-semibold">ระบบเข้าสู่ระบบที่ปลอดภัย</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-user-plus text-green-600 text-2xl mb-2"></i>
+                            <p class="text-sm font-semibold">ระบบสมัครสมาชิกครบครัน</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-tachometer-alt text-purple-600 text-2xl mb-2"></i>
+                            <p class="text-sm font-semibold">หน้า Dashboard สวยงาม</p>
+                        </div>
+                        <div class="text-center">
+                            <i class="fas fa-shield-alt text-red-600 text-2xl mb-2"></i>
+                            <p class="text-sm font-semibold">ระบบความปลอดภัยแข็งแกร่ง</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

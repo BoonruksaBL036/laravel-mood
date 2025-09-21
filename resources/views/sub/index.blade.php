@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Index</title>
+</head>
+
+<body>
+    <h3>Index Page</h3>
+</body>
+
+</html>
