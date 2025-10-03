@@ -13,7 +13,7 @@
 
     <!-- Tailwind / Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    
+
     <style>
         /* Gradient animated text */
         .gradient-text {
@@ -24,8 +24,15 @@
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
         }
 
         /* Floating emoji */
@@ -39,8 +46,15 @@
         }
 
         @keyframes float {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
         }
     </style>
 </head>
@@ -49,19 +63,19 @@
 
     <!-- Floating Emojis -->
     <script>
-        const emojis = ["😊","😢","😠","😌","🤩","😴","😎"];
-        const emojiCount = 30;
-        for (let i = 0; i < emojiCount; i++) {
-            const span = document.createElement('span');
-            span.classList.add('emoji');
-            span.style.left = Math.random() * 100 + "%";
-            span.style.fontSize = (16 + Math.random() * 32) + "px";
-            span.style.animationDuration = (3 + Math.random() * 5) + "s";
-            span.style.animationDelay = Math.random() * 5 + "s";
-            span.style.transform = `rotate(${Math.random()*360}deg)`;
-            span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-            document.body.appendChild(span);
+        function createFallingEmoji() {
+            const emojis = ["😊", "😢", "😠", "😌", "🤩", "😴", "😎"];
+            const emoji = document.createElement("div");
+            emoji.className = "emoji";
+            emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            emoji.style.left = Math.random() * 100 + "vw";
+            emoji.style.animationDuration = (3 + Math.random() * 3) + "s";
+            document.body.appendChild(emoji);
+
+            setTimeout(() => emoji.remove(), 6000);
         }
+
+        setInterval(createFallingEmoji, 500); // ทุก 0.5 วินาที
     </script>
 
     <!-- Header: Login/Register -->
