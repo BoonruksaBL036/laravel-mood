@@ -81,7 +81,7 @@
         </div>
 
         <!-- Form -->
-        <form action="{{ route('register') }}" method="POST" class="space-y-6 flex-grow overflow-auto">
+        <form action="{{ route('register') }}" method="POST" class="space-y-6 flex-grow ">
             @csrf
 
             <!-- Name Field -->
