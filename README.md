@@ -7,55 +7,74 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+# Laravel Mood Tracker
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**Laravel Mood Tracker** เป็นเว็บแอปพลิเคชันสำหรับบันทึกและติดตามอารมณ์ในแต่ละวัน สร้างขึ้นด้วย [Laravel Framework](https://laravel.com/) ช่วยให้ผู้ใช้สามารถเห็นภาพรวมของสุขภาพจิตของตนเองผ่านประวัติการบันทึกอารมณ์
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## ✨ ฟีเจอร์หลัก
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **🔐 ระบบสมาชิก:** ลงทะเบียน, เข้าสู่ระบบ และออกจากระบบอย่างปลอดภัย
+- **📊 แดชบอร์ด:** แสดงประวัติการบันทึกอารมณ์ของผู้ใช้ในรูปแบบที่เข้าใจง่าย
+- **📝 การบันทึกอารมณ์:** ฟอร์มสำหรับเพิ่มบันทึกอารมณ์ใหม่ได้อย่างรวดเร็ว
 
-## Learning Laravel
+## 📸 ภาพหน้าจอ
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+*(เพิ่มภาพหน้าจอของแอปพลิเคชันที่นี่)*
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+| หน้าลงทะเบียน | หน้าแดชบอร์ด |
+| :---: | :---: |
+| `[ภาพหน้าลงทะเบียน]` | `[ภาพหน้าแดชบอร์ด]` |
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## 🛠️ เทคโนโลยีที่ใช้
 
-## Laravel Sponsors
+- **Backend:** PHP / Laravel
+- **Frontend:** Blade Template Engine, Vite
+- **Database:** SQLite (หรือฐานข้อมูลอื่น ๆ ที่ Laravel รองรับ)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## 🚀 ขั้นตอนการติดตั้ง
 
-### Premium Partners
+1.  **Clone a repository:**
+    ```bash
+    git clone https://github.com/USERNAME/laravel-mood.git
+    cd laravel-mood
+    ```
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+2.  **ติดตั้ง Dependencies:**
+    ```bash
+    composer install
+    npm install
+    ```
 
-## Contributing
+3.  **ตั้งค่า Environment:**
+    คัดลอกไฟล์ `.env.example` ไปเป็น `.env` และตั้งค่าตัวแปรที่จำเป็น
+    ```bash
+    cp .env.example .env
+    ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+4.  **สร้าง Application Key:**
+    ```bash
+    php artisan key:generate
+    ```
 
-## Code of Conduct
+5.  **Migrate ฐานข้อมูล:**
+    ```bash
+    php artisan migrate
+    ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 💡 วิธีใช้งาน
 
-## Security Vulnerabilities
+1.  **Build Assets:**
+    ```bash
+    npm run dev
+    ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+2.  **รัน Development Server:**
+    ```bash
+    php artisan serve
+    ```
 
-## License
+3.  เข้าสู่แอปพลิเคชันผ่าน `http://127.0.0.1:8000`
+
+## 📄 License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
