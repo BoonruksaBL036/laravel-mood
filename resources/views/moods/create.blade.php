@@ -6,39 +6,66 @@
 <title>Log Your Mood</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-    /* Emoji falling animation */
-    .emoji {
-        position: absolute;
-        font-size: 2rem;
-        top: -2rem; /* เริ่มจากด้านบน */
-        animation-name: fall;
-        animation-timing-function: linear;
-        animation-iteration-count: infinite;
-    }
-
-    @keyframes fall {
-        0% { transform: translateY(0px) rotate(0deg); opacity: 1; }
-        100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
-    }
+/* Emoji container & style */
+.emoji-container { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; overflow:hidden; z-index:0; }
+.emoji {
+    position: absolute;
+    top: -50px;
+    pointer-events: auto;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.5s, opacity 0.5s;
+}
+/* Scrollable table */
+.scrollable-table {
+    overflow-x: auto;
+    max-height: 400px;
+}
 </style>
 </head>
 <body class="bg-gradient-to-br from-[#FDE2F3] via-[#FFF6D1] to-[#D1F7FF] min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
+<!-- Emoji container -->
+<div class="emoji-container"></div>
+    <!-- Emoji Scripts -->
+<script>
+const emojis = ['😀','😂','🥰','😎','🤩','😇','🙃','😜','😢','😡','🥳','😱','😴','🤔','😏','🥶','🥵','🤯','😳','😈','👻','💀','☠️','👽','🤖','🎃','🌞','🌜','⭐','💫'];
+const container = document.querySelector('.emoji-container');
 
-    <!-- Floating Emojis -->
-    <script>
-        const emojis = ["😊","😢","😠","😌","🤩","😴","😎"];
-        const emojiCount = 30; // จำนวน emoji
-        for (let i = 0; i < emojiCount; i++) {
-            const span = document.createElement('span');
-            span.classList.add('emoji');
-            span.style.left = Math.random() * 100 + "%"; // สุ่มตำแหน่ง X
-            span.style.fontSize = (16 + Math.random() * 24) + "px"; // สุ่มขนาด
-            span.style.animationDuration = (3 + Math.random() * 4) + "s"; // สุ่มความเร็ว
-            span.style.animationDelay = Math.random() * 5 + "s"; // สุ่มเวลาเริ่ม
-            span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-            document.body.appendChild(span);
-        }
-    </script>
+for(let i=0;i<30;i++){
+    const e = document.createElement('div');
+    e.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    e.classList.add('emoji');
+    e.style.left = Math.random()*window.innerWidth + 'px';
+    e.style.fontSize = 12 + Math.random()*24 + 'px';
+    e.style.opacity = Math.random()*0.7+0.3;
+    e.style.transform = `rotate(${Math.random()*360}deg)`;
+    container.appendChild(e);
+
+    const duration = 5000 + Math.random()*5000;
+    const delay = Math.random()*5000;
+    const rotation = (Math.random()>0.5?1:-1)*(Math.random()*360);
+
+    e.animate([
+        { transform: `translateY(0px) rotate(0deg)`, opacity: e.style.opacity },
+        { transform: `translateY(${window.innerHeight+50}px) rotate(${rotation}deg)`, opacity: 0 }
+    ], {
+        duration: duration,
+        delay: delay,
+        iterations: Infinity,
+        easing: 'linear'
+    });
+
+    e.addEventListener('mouseenter', ()=>{
+        e.style.transition = 'transform 0.5s, opacity 0.5s';
+        e.style.opacity = 0;
+        e.style.transform = 'scale(2) rotate(360deg)';
+    });
+
+    e.addEventListener('transitionend', ()=>{
+        if(parseFloat(e.style.opacity)===0) e.remove();
+    });
+}
+</script>
 
     <!-- Mood Form -->
     <div class="w-full max-w-lg bg-white dark:bg-gray-900 rounded-3xl shadow-2xl p-8 relative z-10">
@@ -78,7 +105,7 @@
             </div>
 
             <div>
-                <label for="score" class="block mb-1 font-medium text-gray-700 dark:text-gray-200">Happiness Score (1-10):</label>
+                <label for="score" class="block mb-1 font-medium text-gray-700 dark:text-gray-200">Score (1-10):</label>
                 <input type="number" name="score" id="score" min="1" max="10" placeholder="Optional"
                        class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-400 focus:outline-none dark:bg-gray-800 dark:text-gray-100">
             </div>
@@ -87,12 +114,6 @@
                 <label for="notes" class="block mb-1 font-medium text-gray-700 dark:text-gray-200">Any notes? (optional)</label>
                 <textarea name="notes" id="notes" rows="4"
                           class="w-full p-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-pink-400 focus:outline-none dark:bg-gray-800 dark:text-gray-100"></textarea>
-            </div>
-
-            <div>
-                <label for="image" class="block mb-1 font-medium text-gray-700 dark:text-gray-200">Attach an image (optional)</label>
-                <input type="file" name="image" id="image" accept="image/*"
-                       class="w-full text-gray-700 dark:text-gray-100">
             </div>
 
             <button type="submit"

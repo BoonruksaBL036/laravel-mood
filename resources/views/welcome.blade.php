@@ -13,7 +13,7 @@
 
     <!-- Tailwind / Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    
+
     <style>
         /* Gradient animated text */
         .gradient-text {
@@ -24,43 +24,105 @@
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
         }
 
-        /* Floating emoji */
+        .emoji-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
         .emoji {
             position: absolute;
-            font-size: 2rem;
-            top: -2rem;
-            animation-name: float;
-            animation-timing-function: linear;
-            animation-iteration-count: infinite;
+            top: -50px;
+            pointer-events: auto;
+            cursor: pointer;
+            user-select: none;
+            transition: transform 0.5s, opacity 0.5s;
+        }
+
+        /* Scrollable table */
+        .scrollable-table {
+            overflow-x: auto;
+            max-height: 400px;
         }
 
         @keyframes float {
-            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(110vh) rotate(360deg);
+                opacity: 0;
+            }
         }
     </style>
 </head>
 
 <body class="bg-gradient-to-br from-[#FDE2F3] via-[#FFF6D1] to-[#D1F7FF] dark:from-[#0a0a0a] dark:via-[#1a1a1a] dark:to-[#1f1f1f] text-[#1b1b18] dark:text-[#EDEDEC] flex flex-col items-center justify-center min-h-screen relative overflow-hidden p-6 lg:p-8">
 
-    <!-- Floating Emojis -->
+<!-- Emoji container -->
+<div class="emoji-container"></div>
+
+    <!-- Emoji Scripts -->
     <script>
-        const emojis = ["😊","😢","😠","😌","🤩","😴","😎"];
-        const emojiCount = 30;
-        for (let i = 0; i < emojiCount; i++) {
-            const span = document.createElement('span');
-            span.classList.add('emoji');
-            span.style.left = Math.random() * 100 + "%";
-            span.style.fontSize = (16 + Math.random() * 32) + "px";
-            span.style.animationDuration = (3 + Math.random() * 5) + "s";
-            span.style.animationDelay = Math.random() * 5 + "s";
-            span.style.transform = `rotate(${Math.random()*360}deg)`;
-            span.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-            document.body.appendChild(span);
+        const emojis = ['😀', '😂', '🥰', '😎', '🤩', '😇', '🙃', '😜', '😢', '😡', '🥳', '😱', '😴', '🤔', '😏', '🥶', '🥵', '🤯', '😳', '😈', '👻', '💀', '☠️', '👽', '🤖', '🎃', '🌞', '🌜', '⭐', '💫'];
+        const container = document.querySelector('.emoji-container');
+
+        for (let i = 0; i < 30; i++) {
+            const e = document.createElement('div');
+            e.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            e.classList.add('emoji');
+            e.style.left = Math.random() * window.innerWidth + 'px';
+            e.style.fontSize = 12 + Math.random() * 24 + 'px';
+            e.style.opacity = Math.random() * 0.7 + 0.3;
+            e.style.transform = `rotate(${Math.random()*360}deg)`;
+            container.appendChild(e);
+
+            const duration = 5000 + Math.random() * 5000;
+            const delay = Math.random() * 5000;
+            const rotation = (Math.random() > 0.5 ? 1 : -1) * (Math.random() * 360);
+
+            e.animate([{
+                    transform: `translateY(0px) rotate(0deg)`,
+                    opacity: e.style.opacity
+                },
+                {
+                    transform: `translateY(${window.innerHeight+50}px) rotate(${rotation}deg)`,
+                    opacity: 0
+                }
+            ], {
+                duration: duration,
+                delay: delay,
+                iterations: Infinity,
+                easing: 'linear'
+            });
+
+            e.addEventListener('mouseenter', () => {
+                e.style.transition = 'transform 0.5s, opacity 0.5s';
+                e.style.opacity = 0;
+                e.style.transform = 'scale(2) rotate(360deg)';
+            });
+
+            e.addEventListener('transitionend', () => {
+                if (parseFloat(e.style.opacity) === 0) e.remove();
+            });
         }
     </script>
 

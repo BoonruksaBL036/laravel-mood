@@ -6,111 +6,117 @@
     <title>Register - Laravel App</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+/* Emoji container & style */
+.emoji-container { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; overflow:hidden; z-index:0; }
+.emoji {
+    position: absolute;
+    top: -50px;
+    pointer-events: auto;
+    cursor: pointer;
+    user-select: none;
+    transition: transform 0.5s, opacity 0.5s;
+}
+/* Scrollable table */
+.scrollable-table {
+    overflow-x: auto;
+    max-height: 400px;
+}
+</style>
 </head>
-<body class="bg-gradient-to-br from-green-500 to-blue-600 min-h-screen flex items-center justify-center">
-    <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md">
+<body class="bg-gradient-to-br from-[#FDE2F3] via-[#FFF6D1] to-[#D1F7FF] min-h-screen flex items-center justify-center text-[#1b1b18]">
+<!-- Emoji container -->
+<div class="emoji-container"></div>
+    <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md relative overflow-hidden">
         <!-- Header -->
-        <div class="text-center mb-8">
-            <div class="mx-auto w-16 h-16 bg-gradient-to-r from-green-500 to-blue-600 rounded-full flex items-center justify-center mb-4">
+        <div class="text-center mb-8 relative z-10">
+            <div class="mx-auto w-16 h-16 bg-gradient-to-r from-[#F472B6] via-[#C084FC] to-[#60A5FA] rounded-full flex items-center justify-center mb-4 shadow-lg">
                 <i class="fas fa-user-plus text-white text-2xl"></i>
             </div>
-            <h2 class="text-3xl font-bold text-gray-800">Create Account</h2>
+            <h2 class="text-3xl font-extrabold bg-gradient-to-r from-[#F472B6] via-[#C084FC] to-[#60A5FA] bg-clip-text text-transparent">
+                Create Account
+            </h2>
             <p class="text-gray-600 mt-2">Join us today and get started</p>
         </div>
 
         <!-- Registration Form -->
-        <form action="{{ route('register') }}" method="POST" class="space-y-6">
+        <form action="{{ route('register') }}" method="POST" class="space-y-6 relative z-10">
             @csrf
-            
-            <!-- Name Field -->
+
+            <!-- Name -->
             <div class="space-y-2">
                 <label for="name" class="block text-sm font-medium text-gray-700">
-                    <i class="fas fa-user mr-2"></i>Full Name
+                    <i class="fas fa-user mr-2 text-[#F472B6]"></i>Full Name
                 </label>
                 <input 
                     type="text" 
                     id="name" 
-                    name="name" 
+                    name="name"
                     value="{{ old('name') }}"
-                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200 @error('name') border-red-500 @enderror"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-400 focus:border-transparent transition duration-200"
                     placeholder="Enter your full name"
                     required
-                    autocomplete="name"
                 >
-                @error('name')
-                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                @enderror
             </div>
 
-            <!-- Email Field -->
+            <!-- Email -->
             <div class="space-y-2">
                 <label for="email" class="block text-sm font-medium text-gray-700">
-                    <i class="fas fa-envelope mr-2"></i>Email Address
+                    <i class="fas fa-envelope mr-2 text-[#C084FC]"></i>Email Address
                 </label>
                 <input 
                     type="email" 
                     id="email" 
-                    name="email" 
+                    name="email"
                     value="{{ old('email') }}"
-                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200 @error('email') border-red-500 @enderror"
+                    class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-400 focus:border-transparent transition duration-200"
                     placeholder="Enter your email"
                     required
-                    autocomplete="email"
                 >
-                @error('email')
-                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                @enderror
             </div>
 
-            <!-- Password Field -->
+            <!-- Password -->
             <div class="space-y-2">
                 <label for="password" class="block text-sm font-medium text-gray-700">
-                    <i class="fas fa-lock mr-2"></i>Password
+                    <i class="fas fa-lock mr-2 text-[#60A5FA]"></i>Password
                 </label>
                 <div class="relative">
                     <input 
                         type="password" 
                         id="password" 
-                        name="password" 
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200 @error('password') border-red-500 @enderror"
+                        name="password"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-400 focus:border-transparent transition duration-200"
                         placeholder="Create a password"
                         required
-                        autocomplete="new-password"
                     >
                     <button 
                         type="button" 
-                        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-pink-500"
                         onclick="togglePassword('password', 'toggleIcon1')"
                     >
                         <i class="fas fa-eye" id="toggleIcon1"></i>
                     </button>
                 </div>
-                @error('password')
-                    <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
-                @enderror
-                <div class="text-xs text-gray-600 mt-1">
-                    Password must be at least 8 characters long
-                </div>
+                <p class="text-xs text-gray-500 mt-1">Password must be at least 8 characters long</p>
             </div>
 
-            <!-- Confirm Password Field -->
+            <!-- Confirm Password -->
             <div class="space-y-2">
                 <label for="password_confirmation" class="block text-sm font-medium text-gray-700">
-                    <i class="fas fa-lock mr-2"></i>Confirm Password
+                    <i class="fas fa-lock mr-2 text-[#C084FC]"></i>Confirm Password
                 </label>
                 <div class="relative">
                     <input 
                         type="password" 
                         id="password_confirmation" 
-                        name="password_confirmation" 
-                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent transition duration-200"
+                        name="password_confirmation"
+                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-400 focus:border-transparent transition duration-200"
                         placeholder="Confirm your password"
                         required
-                        autocomplete="new-password"
                     >
                     <button 
                         type="button" 
-                        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+                        class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-pink-500"
                         onclick="togglePassword('password_confirmation', 'toggleIcon2')"
                     >
                         <i class="fas fa-eye" id="toggleIcon2"></i>
@@ -118,131 +124,95 @@
                 </div>
             </div>
 
-            <!-- Terms and Conditions -->
+            <!-- Terms -->
             <div class="flex items-start">
                 <input 
                     type="checkbox" 
                     id="terms" 
                     name="terms" 
-                    class="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded mt-1"
+                    class="h-4 w-4 text-pink-500 focus:ring-pink-400 border-gray-300 rounded mt-1"
                     required
                 >
-                <label for="terms" class="ml-2 block text-sm text-gray-700">
+                <label for="terms" class="ml-2 text-sm text-gray-700">
                     I agree to the 
-                    <a href="#" class="text-green-600 hover:text-green-800 font-semibold">Terms and Conditions</a> 
+                    <a href="#" class="text-[#F472B6] hover:text-[#C084FC] font-semibold">Terms and Conditions</a> 
                     and 
-                    <a href="#" class="text-green-600 hover:text-green-800 font-semibold">Privacy Policy</a>
+                    <a href="#" class="text-[#F472B6] hover:text-[#C084FC] font-semibold">Privacy Policy</a>
                 </label>
             </div>
 
             <!-- Submit Button -->
             <button 
                 type="submit" 
-                class="w-full bg-gradient-to-r from-green-500 to-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:from-green-600 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition duration-200 transform hover:scale-105"
+                class="w-full bg-gradient-to-r from-[#F472B6] via-[#C084FC] to-[#60A5FA] text-white py-3 px-4 rounded-lg font-semibold hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-pink-300 focus:ring-offset-2 transition duration-200 transform hover:scale-105"
             >
                 <i class="fas fa-user-plus mr-2"></i>Create Account
             </button>
-
-            <!-- Error Messages -->
-            @if ($errors->any())
-                <div class="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
-                    <div class="flex items-center">
-                        <i class="fas fa-exclamation-triangle mr-2"></i>
-                        <span class="font-medium">Please correct the following errors:</span>
-                    </div>
-                    <ul class="mt-2 list-disc list-inside text-sm">
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-            @endif
-
-            <!-- Success Message -->
-            @if (session('success'))
-                <div class="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg">
-                    <div class="flex items-center">
-                        <i class="fas fa-check-circle mr-2"></i>
-                        <span>{{ session('success') }}</span>
-                    </div>
-                </div>
-            @endif
         </form>
 
         <!-- Footer -->
         <div class="mt-8 text-center">
-            <p class="text-gray-600">
+            <p class="text-gray-700">
                 Already have an account? 
-                <a href="{{ route('login') }}" class="text-green-600 hover:text-green-800 font-semibold transition duration-200">
+                <a href="{{ route('login') }}" class="text-[#F472B6] hover:text-[#C084FC] font-semibold">
                     Sign in here
                 </a>
             </p>
-        </div>
-
-        <!-- Social Registration (Optional) -->
-        <div class="mt-6">
-            <div class="relative">
-                <div class="absolute inset-0 flex items-center">
-                    <div class="w-full border-t border-gray-300"></div>
-                </div>
-            </div>
         </div>
     </div>
 
     <script>
         function togglePassword(inputId, iconId) {
-            const passwordInput = document.getElementById(inputId);
-            const toggleIcon = document.getElementById(iconId);
-            
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                toggleIcon.className = 'fas fa-eye-slash';
+            const input = document.getElementById(inputId);
+            const icon = document.getElementById(iconId);
+            if (input.type === "password") {
+                input.type = "text";
+                icon.className = "fas fa-eye-slash";
             } else {
-                passwordInput.type = 'password';
-                toggleIcon.className = 'fas fa-eye';
+                input.type = "password";
+                icon.className = "fas fa-eye";
             }
         }
-
-        // Password strength indicator
-        document.getElementById('password').addEventListener('input', function(e) {
-            const password = e.target.value;
-            const strengthBar = document.getElementById('strengthBar');
-            
-            if (password.length === 0) return;
-            
-            let strength = 0;
-            if (password.length >= 8) strength++;
-            if (/[A-Z]/.test(password)) strength++;
-            if (/[a-z]/.test(password)) strength++;
-            if (/[0-9]/.test(password)) strength++;
-            if (/[^A-Za-z0-9]/.test(password)) strength++;
-            
-            // You can add visual password strength indicator here
-        });
-
-        // Form submission animation
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.querySelector('form');
-            form.addEventListener('submit', function(e) {
-                const submitBtn = form.querySelector('button[type="submit"]');
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Creating Account...';
-                submitBtn.disabled = true;
-            });
-        });
-
-        // Real-time password confirmation validation
-        document.getElementById('password_confirmation').addEventListener('input', function(e) {
-            const password = document.getElementById('password').value;
-            const confirmPassword = e.target.value;
-            
-            if (confirmPassword && password !== confirmPassword) {
-                e.target.classList.add('border-red-500');
-                e.target.classList.remove('border-gray-300');
-            } else {
-                e.target.classList.remove('border-red-500');
-                e.target.classList.add('border-gray-300');
-            }
-        });
     </script>
+    <!-- Emoji Scripts -->
+<script>
+const emojis = ['😀','😂','🥰','😎','🤩','😇','🙃','😜','😢','😡','🥳','😱','😴','🤔','😏','🥶','🥵','🤯','😳','😈','👻','💀','☠️','👽','🤖','🎃','🌞','🌜','⭐','💫'];
+const container = document.querySelector('.emoji-container');
+
+for(let i=0;i<30;i++){
+    const e = document.createElement('div');
+    e.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+    e.classList.add('emoji');
+    e.style.left = Math.random()*window.innerWidth + 'px';
+    e.style.fontSize = 12 + Math.random()*24 + 'px';
+    e.style.opacity = Math.random()*0.7+0.3;
+    e.style.transform = `rotate(${Math.random()*360}deg)`;
+    container.appendChild(e);
+
+    const duration = 5000 + Math.random()*5000;
+    const delay = Math.random()*5000;
+    const rotation = (Math.random()>0.5?1:-1)*(Math.random()*360);
+
+    e.animate([
+        { transform: `translateY(0px) rotate(0deg)`, opacity: e.style.opacity },
+        { transform: `translateY(${window.innerHeight+50}px) rotate(${rotation}deg)`, opacity: 0 }
+    ], {
+        duration: duration,
+        delay: delay,
+        iterations: Infinity,
+        easing: 'linear'
+    });
+
+    e.addEventListener('mouseenter', ()=>{
+        e.style.transition = 'transform 0.5s, opacity 0.5s';
+        e.style.opacity = 0;
+        e.style.transform = 'scale(2) rotate(360deg)';
+    });
+
+    e.addEventListener('transitionend', ()=>{
+        if(parseFloat(e.style.opacity)===0) e.remove();
+    });
+}
+</script>
 </body>
 </html>
